@@ -30,6 +30,7 @@
           <td>{{ user.id }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
+          {{ console.log(user) }} <!-- Add this line -->
         </tr>
       </tbody>
     </table>
@@ -37,6 +38,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'UserList',
   data() {
@@ -50,14 +53,38 @@ export default {
     };
   },
   methods: {
+    listUsers() {
+      axios.get('http://localhost:8080/users')
+      .then(response => {
+        this.userList = response.data;
+        console.log(this.userList); // Add this line
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    },
     addUser() {
-      this.userList.push(this.newUser);
+      axios.post('http://localhost:8080/users', {
+        name: this.newUser.name,
+        email: this.newUser.email
+      })
+      .then(response => {
+        console.log(response.data);
+        this.listUsers();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+      console.log(this.newUser);
       this.newUser = {
         id: '',
         name: '',
         email: '',
       };
     },
+  },
+  mounted() {
+    this.listUsers();
   },
 };
 </script>
