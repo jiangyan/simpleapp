@@ -30,7 +30,6 @@
           <td>{{ user.id }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
-          {{ console.log(user) }} <!-- Add this line -->
         </tr>
       </tbody>
     </table>
@@ -57,7 +56,6 @@ export default {
       axios.get('http://localhost:8080/users')
       .then(response => {
         this.userList = response.data;
-        console.log(this.userList); // Add this line
       })
       .catch(error => {
         console.log(error);
@@ -69,13 +67,11 @@ export default {
         email: this.newUser.email
       })
       .then(response => {
-        console.log(response.data);
         this.listUsers();
       })
       .catch(error => {
         console.log(error);
       });
-      console.log(this.newUser);
       this.newUser = {
         id: '',
         name: '',
