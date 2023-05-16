@@ -53,20 +53,24 @@ export default {
   },
   methods: {
     listUsers() {
-      axios.get('http://localhost:8080/users')
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`;
+      axios.get('http://localhost:8080/internalusers')
       .then(response => {
         this.userList = response.data;
+        console.log(this.userList);
       })
       .catch(error => {
         console.log(error);
       });
     },
     addUser() {
-      axios.post('http://localhost:8080/users', {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`;
+      axios.post('http://localhost:8080/internalusers', {
         name: this.newUser.name,
         email: this.newUser.email
       })
       .then(response => {
+        console.log(response.status);
         this.listUsers();
       })
       .catch(error => {

@@ -1,18 +1,13 @@
 <template>
   <div>
-    <user-list></user-list>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import UserList from './components/UserList.vue'
-
 export default {
-  name: 'App',
-  components: {
-    UserList
-  }
-}
+    name: "App"
+};
 </script>
 
 <style>
